@@ -4,7 +4,7 @@ import 'package:clonephone/common/providers.dart';
 import 'package:clonephone/ui/favourite_screen/favourite_page.dart';
 import 'package:clonephone/ui/resent_screen/recent_page.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,10 +23,10 @@ import '../contacts_screen/contact_page.dart';
 class Home extends ConsumerStatefulWidget{
 
   const Home({
-   super.key,
-   // required this.tab
-});
- // final int tab;
+    super.key,
+    // required this.tab
+  });
+  // final int tab;
 
 
   @override
@@ -49,11 +49,11 @@ class _HomeState extends ConsumerState<Home>{
   @override
   void initState(){
     super.initState();
-    fetchData();
+   // fetchData();
     searchTextController = TextEditingController(text: '');
-    pageList.add( FavoritesPage(favoriteContacts: favoriteContacts));
-    pageList.add( RecentPage(callLogs: callLogs));
-    pageList.add( ContactPage(contacts:contacts,onFavorite:  (contact) {
+    pageList.add( const FavoritesPage());
+    pageList.add( const RecentPage());
+    pageList.add( ContactPage(onFavorite:  (contact) {
       setState(() {
         if (!favoriteContacts.contains(contact)) {
           favoriteContacts.add(contact);
@@ -68,46 +68,46 @@ class _HomeState extends ConsumerState<Home>{
 
   }
 
-  Future<void> fetchData() async {
-    // Request permissions
-    await requestPermissions();
-    List<Contact> fetchedContacts = await fetchContacts();
-    List<CallLogEntry> fetchedCallLogs = await fetchCallLogs();
+  // Future<void> fetchData() async {
+  //   // Request permissions
+  //   await requestPermissions();
+  //   List<Contact> fetchedContacts = await fetchContacts();
+  //   List<CallLogEntry> fetchedCallLogs = await fetchCallLogs();
+  //
+  //   setState(() {
+  //     contacts = fetchedContacts;
+  //     callLogs = fetchedCallLogs;
+  //   });
+  // }
 
-    setState(() {
-      contacts = fetchedContacts;
-      callLogs = fetchedCallLogs;
-    });
-  }
-
-    @override
+  @override
   void dispose() {
     searchTextController.dispose();
-   // _scrollController.dispose();
+    // _scrollController.dispose();
     textFieldFocusNode.dispose();
     super.dispose();
   }
 
-void textfieldFocus()async{
-  textFieldFocusNode.addListener(() {
-    if (textFieldFocusNode.hasFocus) {
-      setState(() {
-        undoreturn = true;
-      });
-    }else{
-      setState(() {
-        undoreturn = false;
-      });
-    }
-  });
-}
+  void textfieldFocus()async{
+    textFieldFocusNode.addListener(() {
+      if (textFieldFocusNode.hasFocus) {
+        setState(() {
+          undoreturn = true;
+        });
+      }else{
+        setState(() {
+          undoreturn = false;
+        });
+      }
+    });
+  }
 
 
 
   void saveCurrentIndex()async{
-final prefs = ref.read(sharedPrefProvider);
-final bottomNavigation = ref.read(bottomNavigationProvider);
-prefs.setInt(prefSelectedIndexKey, bottomNavigation.selectedIndex);
+    final prefs = ref.read(sharedPrefProvider);
+    final bottomNavigation = ref.read(bottomNavigationProvider);
+    prefs.setInt(prefSelectedIndexKey, bottomNavigation.selectedIndex);
   }
 
   void getCurrentIndex() async {
@@ -122,10 +122,10 @@ prefs.setInt(prefSelectedIndexKey, bottomNavigation.selectedIndex);
   }
 
   void _onItemTapped(int index) {
-ref.read(bottomNavigationProvider.notifier)
-    .updateSelectedIndex(index);
+    ref.read(bottomNavigationProvider.notifier)
+        .updateSelectedIndex(index);
 
-saveCurrentIndex();
+    saveCurrentIndex();
   }
 
   @override
@@ -149,7 +149,7 @@ saveCurrentIndex();
         config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.standard:SlotLayout.from(
               key: const Key('TopNavigation'),
-            builder: (_){
+              builder: (_){
                 return Padding(
                   padding: topPadding16,
                   child:  Container(
@@ -160,7 +160,7 @@ saveCurrentIndex();
                 );
 
 
-            }
+              }
           )
         },
       ),
@@ -215,7 +215,7 @@ saveCurrentIndex();
 
                   ),
 
-              ],
+                ],
               );
 
             },
@@ -343,29 +343,29 @@ saveCurrentIndex();
 
   List<NavigationRailDestination> getRailNavigations() {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-   // final selectedColor =    isDarkMode ? Colors.deepOrangeAccent : Colors.orange;
-return [
-  const NavigationRailDestination(
-    icon: Icon(Icons.star_border_outlined),
-    label: Text('Favourites',
-      style: TextStyle(fontSize: 10)),
-    selectedIcon: Icon(Icons.star),
-  ),
-  const NavigationRailDestination(
-    icon: Icon(Icons.watch_later_outlined),
-    label: Text('Recent',
-        style: TextStyle(fontSize: 10)),
-    selectedIcon: Icon(Icons.watch_later),
-  ),
+    // final selectedColor =    isDarkMode ? Colors.deepOrangeAccent : Colors.orange;
+    return [
+      const NavigationRailDestination(
+        icon: Icon(Icons.star_border_outlined),
+        label: Text('Favourites',
+            style: TextStyle(fontSize: 10)),
+        selectedIcon: Icon(Icons.star),
+      ),
+      const NavigationRailDestination(
+        icon: Icon(Icons.watch_later_outlined),
+        label: Text('Recent',
+            style: TextStyle(fontSize: 10)),
+        selectedIcon: Icon(Icons.watch_later),
+      ),
 
-  const NavigationRailDestination(
-    icon: Icon(Icons.supervisor_account_outlined),
-    label: Text('Contacts',
-        style: TextStyle(fontSize: 10)),
-    selectedIcon: Icon(Icons.supervisor_account_sharp),
-  ),
+      const NavigationRailDestination(
+        icon: Icon(Icons.supervisor_account_outlined),
+        label: Text('Contacts',
+            style: TextStyle(fontSize: 10)),
+        selectedIcon: Icon(Icons.supervisor_account_sharp),
+      ),
 
-];
+    ];
 
   }
   Widget _buildSearchCard() {
@@ -381,7 +381,7 @@ return [
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-            //    startSearch(searchTextController.text);
+                //    startSearch(searchTextController.text);
                 final currentFocus = FocusScope.of(context);
                 if (!currentFocus.hasPrimaryFocus) {
                   currentFocus.unfocus();
@@ -401,11 +401,11 @@ return [
                         autofocus: false,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (value) {
-                     //     startSearch(searchTextController.text);
+                          //     startSearch(searchTextController.text);
                         },
-                       controller: searchTextController,
+                        controller: searchTextController,
 
-                    focusNode: textFieldFocusNode,
+                        focusNode: textFieldFocusNode,
                         onChanged: (value){
                           if(value.isEmpty) {
                             setState(() {
@@ -465,7 +465,7 @@ return [
       body: SafeArea(
         child: IndexedStack(
 
-         index: ref.watch(bottomNavigationProvider).selectedIndex,
+          index: ref.watch(bottomNavigationProvider).selectedIndex,
           children: pageList,
 
         ),
@@ -484,12 +484,12 @@ return [
 
       NavigationDestination(
         icon: Icon(Icons.star_border_outlined,
-        color: unSelectedItemColor,
+          color: unSelectedItemColor,
         ),
         label: 'Favourites',
 
         selectedIcon: Icon(Icons.star,
-        color: selectedColor,
+          color: selectedColor,
         ),
       ),
       NavigationDestination(
@@ -519,24 +519,24 @@ return [
     final backgroundColor =
     isDarkMode ? Colors.brown[400] : Colors.brown[50];
 
-final bottomNavigationIndex=
-    ref.watch(bottomNavigationProvider).selectedIndex;
+    final bottomNavigationIndex=
+        ref.watch(bottomNavigationProvider).selectedIndex;
 
 
 
 
 
 
-  return NavigationBar(
-        selectedIndex:bottomNavigationIndex,
-        onDestinationSelected: (index) {
-           _onItemTapped(index);
+    return NavigationBar(
+      selectedIndex:bottomNavigationIndex,
+      onDestinationSelected: (index) {
+        _onItemTapped(index);
 
-        },
-        destinations: appBarDestinations,
-          backgroundColor: backgroundColor,
+      },
+      destinations: appBarDestinations,
+      backgroundColor: backgroundColor,
 
-      );
+    );
 
 
 

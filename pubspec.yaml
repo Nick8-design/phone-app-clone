@@ -1,5 +1,5 @@
 name: clonephone
-description: "this is a clone of phone call to help me grab the concept of statemanagement using riverpond ,routes,api using json,shared preferences,search card,floating button,slide delete,center or fill in diffent screens"
+description: "This is a clone of phone call to help me grab the concept of statemanagement using riverpond ,routes,api using json,shared preferences,search card,floating button,slide delete,center or fill in diffent screens"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -23,9 +23,33 @@ dependencies:
   freezed_annotation: ^2.4.4
   path_provider: ^2.1.5
   path: ^1.9.0
+
   permission_handler: ^11.3.1
   contacts_service: ^0.6.3
   call_log: ^4.0.0
+
+  fluttertoast:  ^8.2.10
+
+  #loading
+  shimmer: ^3.0.0
+
+  #time format:
+  intl: ^0.20.0
+
+  synchronized: ^3.1.0
+  sqlbrite: ^2.6.0
+  sqlite3_flutter_libs: ^0.5.18
+  web_ffi: ^0.7.2
+  sqlite3: ^2.1.0
+  drift: ^2.13.1
+
+  image_picker: ^1.0.0
+
+
+
+
+
+
 
 
 
@@ -37,6 +61,10 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   freezed: ^2.5.2
   build_runner: ^2.4.11
+  drift_dev: ^2.13.2
+
+
+
 
 flutter:
 
